@@ -15,8 +15,8 @@
         "windows": {
             "MainWindow": {
                 "file": "files/main.html",
-                "transparent": false,
-                "resizable": false,
+                "transparent": true,
+                "resizable": true,
                 "size": {
                     "width": 400,
                     "height": 300

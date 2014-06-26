@@ -106,7 +106,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('devel', ['build', 'start_overwolf', 'watch'])
 
-    grunt.registerTask('start_overwolf', 'Start', function() {
+    grunt.registerTask('start_overwolf', 'Start Overwolf', function() {
         var done = this.async()
 
         var launcher = spawn('node', ['scripts/overwolf-launcher.js'], {
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
         }        
     })
 
-    grunt.registerTask('stop_overwolf', 'Stop', function() {
+    grunt.registerTask('stop_overwolf', 'Stop Overwolf', function() {
         var done = this.async()
 
         if (pid) {

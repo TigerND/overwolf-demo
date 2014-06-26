@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
+  
 	<script src="overwolf-demo-app.js"></script>
 	<script>
 	  var app = require('app')
 	</script>
+	
   </head>
-  <body>
-    <div>Hello World</div>
-    <div><a href='javascript: app.clickMe()'>Click Me!</a></div>
+  <body>    
+    
+    <div id="content" style="background-color: #3366CC;" onmousedown="app.dragMove();">
+        <h1>Hello, world!</h1>
+        <p>You can drag from anywhere you want, and resize from bottom right corner.</p>
+        <button id="close" onclick="app.closeWindow();">Close</button>
+        <div style="background-color: #0000CC; width:20px; height:20px; bottom:0; right:0; position:absolute;" onmousedown="app.dragResize('BottomRight');"></div>
+    </div>
+    
 	<script>
-	  app.start()
+	    app.start()
 	</script>
+	
   </body>
 </html>
