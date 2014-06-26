@@ -9,8 +9,8 @@ var fs = require('fs'),
 
 var spawn = child_process.spawn
 
-var pid = null    
-    
+var pid = null
+
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
             },
             files: {
                 expand: true,
-            	cwd: 'src/files/',
+                cwd: 'src/files/',
                 src: '**',
                 dest: 'dist/files/'
             }
@@ -107,30 +107,32 @@ module.exports = function(grunt) {
     grunt.registerTask('devel', ['build', 'start_overwolf', 'watch'])
 
     grunt.registerTask('start_overwolf', 'Start', function() {
-    	var done = this.async()
+        var done = this.async()
 
-    	var nodewebkit = spawn('node', ['scripts/overwolf-launcher.js'], { stdio: 'inherit' })
-		
-    	nodewebkit.on('close', function(code) {
-			console.log('Child process exited with code:', code)
-			pid = null
-		})
+        var nodewebkit = spawn('node', ['scripts/overwolf-launcher.js'], {
+            stdio: 'inherit'
+        })
 
-		pid = nodewebkit.pid
+        nodewebkit.on('close', function(code) {
+            console.log('Child process exited with code:', code)
+            pid = null
+        })
 
-		done()
+        pid = nodewebkit.pid
+
+        done()
     })
 
     grunt.registerTask('stop_overwolf', 'Stop', function() {
-    	var done = this.async()
+        var done = this.async()
 
-    	if (pid) {
-    		console.log('Killing', pid)
-    		process.kill(pid, 'SIGKILL')
-    		pid = null
-    	}
-    	setTimeout(function() {
-		    done()
-    	}, 2000)
+        if (pid) {
+            console.log('Killing', pid)
+            process.kill(pid, 'SIGKILL')
+            pid = null
+        }
+        setTimeout(function() {
+            done()
+        }, 2000)
     })
 };
