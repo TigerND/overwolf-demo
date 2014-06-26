@@ -31,7 +31,7 @@ module.exports = function(grunt) {
         browserify: {
             app: {
                 options: {
-                    alias: ['./src/app.js:app']
+                    alias: ['./src/app.js:app'],
                 },
                 files: {
                     "dist/files/<%= pkg.name %>-app.js": ["./src/app.js"]
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
                 livereload: true
             },
             src: {
-                files: ['<%= jshint.files %>'],
+                files: ['<%= jshint.files %>', 'src/**/*.html'],
                 tasks: ['stop_overwolf', 'build', 'start_overwolf'],
                 options: {
                     spawn: false
@@ -109,30 +109,38 @@ module.exports = function(grunt) {
     grunt.registerTask('start_overwolf', 'Start', function() {
         var done = this.async()
 
-        var nodewebkit = spawn('node', ['scripts/overwolf-launcher.js'], {
+        var launcher = spawn('node', ['scripts/overwolf-launcher.js'], {
             stdio: 'inherit'
         })
 
-        nodewebkit.on('close', function(code) {
-            console.log('Child process exited with code:', code)
-            pid = null
-        })
-
-        pid = nodewebkit.pid
-
-        done()
+        if (launcher) {
+        	pid = launcher.pid
+        	grunt.log.ok(['Launcher started', ' PID: ' + pid])
+	        launcher.on('close', function(code) {
+	        	grunt.log.writeln('Launcher exited with code:', code)
+	            pid = null
+	        })	
+        	done()
+        } else {
+        	grunt.log.error(['Failed to start launcher'])
+        	done(false)
+        }        
     })
 
     grunt.registerTask('stop_overwolf', 'Stop', function() {
         var done = this.async()
 
         if (pid) {
-            console.log('Killing', pid)
+        	grunt.log.writeln('Killing ' + pid)
             process.kill(pid, 'SIGKILL')
             pid = null
+            grunt.log.writeln('Waiting 2 seconds')
+            setTimeout(function() {
+                done()
+            }, 2000)
+        } else {
+        	grunt.log.ok(['Launcher has already finished'])
+        	done()
         }
-        setTimeout(function() {
-            done()
-        }, 2000)
     })
 };

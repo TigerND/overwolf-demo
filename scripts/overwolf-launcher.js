@@ -25,8 +25,13 @@ regKey.get('InstallFolder', function(err, value) {
                 }, process.env),
                 stdio: 'inherit'
             })
-        nodewebkit.on('close', function(code) {
-            console.log('Child process exited with code:', code)
-        })
+        if (nodewebkit) {
+            nodewebkit.on('close', function(code) {
+                console.log('Overwolf exited with code:', code)
+                process.exit(code)
+            })        	
+        } else {
+        	process.exit(-1)
+        }
     }
 })

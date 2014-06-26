@@ -4,8 +4,16 @@
 
 var debug = require('debug')('overwolf-demo:app')
 
-exports.test1 = function() {
+var _ = require("lodash"),
+    $ = require("jquery")
+
+exports.start = function() {
+	$(document).ready(function() {
+		console.log('Starting Application')
+	})
+}
+
+exports.clickMe = function() {
     var now = (new Date()).toString()
-    console.log('Current Time:', now)
-    debug(now)
+    console.log('Clicked. Current Time:', now)
 }
