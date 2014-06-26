@@ -1,3 +1,3 @@
 ##Overwolf Demo Application
 
-[Grunt](http://gruntjs.com/)+[JSHint](https://www.npmjs.org/package/jshint)+[Browserify](https://www.npmjs.org/package/browserify)+[Uglify](https://www.npmjs.org/package/uglify-js) for [Overwolf](http://developers.overwolf.com/overview/) WebApp development
+[Grunt](http://gruntjs.com/) + [JSHint](http://www.jshint.com/about/) + [Browserify](http://browserify.org/) + [Uglify](http://lisperator.net/uglifyjs/) + [Watch](https://github.com/gruntjs/grunt-contrib-watch) for [Overwolf](http://developers.overwolf.com/overview/) WebApp development
