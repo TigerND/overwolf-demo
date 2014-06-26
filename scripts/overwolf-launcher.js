@@ -2,24 +2,32 @@
 ============================================================================= */
 /*jshint asi: true*/
 
-var util = require('util')
-
-console.log('Will start Overwolf at', process.cwd(), 'in 2 seconds')
-setTimeout(function() {
-    main()
-}, 2000)
-
-function main() {
-    var spawn = require('child_process').spawn,
-        nodewebkit = spawn('C:\\Program Files (x86)\\Overwolf\\Overwolf.exe', [], {
-            cwd: './dist',
-            env: util._extend({
-                DEBUG: '*'
-            }, process.env),
-            stdio: 'inherit'
-        })
-
-    nodewebkit.on('close', function(code) {
-        console.log('Child process exited with code:', code)
+var util = require('util'),
+	path = require('path'),
+    winreg = require('winreg')
+ 
+var regKey = new winreg({
+      hive: winreg.HKLM,
+      key:  process.arch === 'x64'? '\\Software\\Wow6432Node\\Overwolf': '\\Software\\Overwolf'
     })
-}
+
+regKey.get('InstallFolder', function(err, value) {	
+	if (err) {
+		console.log('Failed to find Overwolf executable', err)
+	} else {
+		var launcherBinary = path.join(value.value.toString(), 'Overwolf.exe')
+		console.log('Starting', launcherBinary)
+	    var spawn = require('child_process').spawn,
+	        nodewebkit = spawn(launcherBinary, [], {
+	            cwd: './dist',
+	            env: util._extend({
+	                DEBUG: '*'
+	            }, process.env),
+	            stdio: 'inherit'
+	        })
+	    nodewebkit.on('close', function(code) {
+	        console.log('Child process exited with code:', code)
+	    })		
+	}
+})
+

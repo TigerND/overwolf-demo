@@ -110,8 +110,8 @@ module.exports = function(grunt) {
     	var done = this.async()
 
     	var nodewebkit = spawn('node', ['scripts/overwolf-launcher.js'], { stdio: 'inherit' })
-
-		nodewebkit.on('close', function (code) {
+		
+    	nodewebkit.on('close', function(code) {
 			console.log('Child process exited with code:', code)
 			pid = null
 		})

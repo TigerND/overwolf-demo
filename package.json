@@ -8,15 +8,16 @@
   },
   "private": false,
   "dependencies": {
-    "util": "*",
+    "util": "~0.10.3",
     "debug": "~1.0.2",
     "handlebars": "*"
   },
   "devDependencies": {
-    "util": "*",
+    "util": "~0.10.3",
     "handlebars": "*",
     "mocha": "*",
     "chai": "*",
+    "winreg": "~0.0.12",
     "browserify": "*",
     "grunt": "~0.4.5",
     "grunt-parallel": "*",
