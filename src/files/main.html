@@ -2,19 +2,22 @@
 <html>
   <head>
   
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+  
+    <script type="text/javascript" src="https://googledrive.com/host/0B-4noyqAgbqCTkhZRzN6ejJhM2s"></script>
+
 	<script src="overwolf-demo-app.js"></script>
 	<script>
 	  var app = require('app')
 	</script>
-	
+  
   </head>
   <body>    
     
-    <div id="content" style="background-color: #3366CC;" onmousedown="app.dragMove();">
-        <h1>Hello, world!</h1>
-        <p>You can drag from anywhere you want, and resize from bottom right corner.</p>
-        <button id="close" onclick="app.closeWindow();">Close</button>
-        <div style="background-color: #0000CC; width:20px; height:20px; bottom:0; right:0; position:absolute;" onmousedown="app.dragResize('BottomRight');"></div>
+    <div id="content" style="background-color: #aaaaaa; font-size: 0.6em;" onmousedown="app.dragMove();">    
+        WebGL Clock
+        <div id='container' onmousedown="app.dragMove();"></div>    
     </div>
     
 	<script>
