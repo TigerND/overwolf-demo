@@ -6,33 +6,56 @@ var debug = require('debug')('overwolf-demo:app')
 
 var $ = require("jquery")
 
-exports.dragResize = function(edge) {
+/* Module exports
+============================================================================= */
+
+exports.dragResize = dragResize
+exports.dragMove = dragMove
+exports.closeWindow = closeWindow
+
+exports.start = start
+
+/* Implementation
+============================================================================= */
+
+function dragResize(edge) {
     overwolf.windows.getCurrentWindow(function(result) {
         if (result.status == "success") {
             overwolf.windows.dragResize(result.window.id, edge);
         }
-    });
-};
+    })
+}
 
-exports.dragMove = function() {
+function dragMove() {
     overwolf.windows.getCurrentWindow(function(result) {
         if (result.status == "success") {
             overwolf.windows.dragMove(result.window.id);
         }
-    });
-};
+    })
+}
 
-exports.closeWindow = function() {
+function closeWindow() {
     overwolf.windows.getCurrentWindow(function(result) {
         if (result.status == "success") {
             overwolf.windows.close(result.window.id);
         }
-    });
-};
+    })
+}
 
-exports.start = function() {
+ function start() {
     $(document).ready(function() {
 
+    	$('#content')
+    	.mousedown(function() {
+    		dragMove()
+    	})
+    	.mouseenter(function() {
+    		$('#title').addClass('active-title').removeClass('inactive-title')
+    	})
+    	.mouseleave(function() {
+    		$('#title').addClass('inactive-title').removeClass('active-title')
+    	})
+    	
         // Dimension Settings
         var width = window.innerWidth - 50,
             height = window.innerHeight - 50;
@@ -40,8 +63,6 @@ exports.start = function() {
             aspect = width / height,
             near = 0.1,
             far = 10000;
-
-
 
         // World Objects
         var scene = new THREE.Scene();
@@ -145,15 +166,6 @@ exports.start = function() {
         hour.receiveShadow = true;
 
 
-        // GUI
-        //var gui = new dat.GUI();
-        //gui.add(camera.position, 'x').min(-50).max(50).step(0.01);
-        //gui.add(camera.position, 'y').min(-50).max(50).step(0.01);
-        //gui.add(camera.position, 'z').min(-50).max(50).step(0.01);
-
-        // deal with resizes
-
-
         // Set initial time
         var now = new Date();
         hour.rotation.y = -((Math.PI * 2) * (now.getHours() / 12.0))
@@ -165,8 +177,6 @@ exports.start = function() {
         // Render
         renderer.setSize(width, height);
         document.body.appendChild(renderer.domElement);
-
-
 
 
         // Animation Tween
@@ -219,5 +229,5 @@ exports.start = function() {
             renderer.render(scene, camera);
         };
         animate();
-    });
+    })
 }
