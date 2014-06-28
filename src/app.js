@@ -72,13 +72,18 @@ function start() {
 
         var light = new THREE.SpotLight(0xFFFFFF, 1);
         var material = new THREE.MeshLambertMaterial({
-            color: 0xFFFFFF
+            color: 0xEEEEFF,
+            opacity: 0.8
+        });
+        var grey = new THREE.MeshLambertMaterial({
+            color: 0x444444,
+            opacity: 0.8
         });
         var red = new THREE.MeshLambertMaterial({
             color: 0xFF0000
         });
-        var grey = new THREE.MeshLambertMaterial({
-            color: 0x222222
+        var white = new THREE.MeshLambertMaterial({
+            color: 0xFFFFFF
         });
 
         var geometry = new THREE.CylinderGeometry(20, 21, 4, 48, 1, false);
@@ -94,12 +99,12 @@ function start() {
 
         geometry = new THREE.CubeGeometry(12, 1, 3);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(15, 0, 0));
-        var minute = new THREE.Mesh(geometry, material);
+        var minute = new THREE.Mesh(geometry, white);
 
         geometry = new THREE.CubeGeometry(10, 1, 4);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(15, 0, 0));
 
-        var hour = new THREE.Mesh(geometry, material);
+        var hour = new THREE.Mesh(geometry, white);
 
 
 

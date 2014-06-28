@@ -19,15 +19,15 @@
                 "resizable": false,
                 "size": {
                     "width": 300,
-                    "height": 280
+                    "height": 290
                 },
                 "min_size": {
                     "width": 300,
-                    "height": 280
+                    "height": 290
                 },
                 "max_size": {
                     "width": 300,
-                    "height": 280
+                    "height": 290
                 }
             }
         }
