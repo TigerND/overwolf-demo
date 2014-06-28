@@ -64,16 +64,19 @@ function start() {
             near = 0.1,
             far = 10000;
 
+        // Objects Array
+        var objects = []
+        
         // World Objects
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(angle, aspect, near, far);
-        var projector
+        var projector = new THREE.Projector();
         var renderer = new THREE.WebGLRenderer();
 
         var light = new THREE.SpotLight(0xFFFFFF, 1);
         var material = new THREE.MeshLambertMaterial({
             color: 0xEEEEFF,
-            opacity: 0.8
+            opacity: 0.9
         });
         var grey = new THREE.MeshLambertMaterial({
             color: 0x444444,
@@ -88,25 +91,28 @@ function start() {
 
         var geometry = new THREE.CylinderGeometry(20, 21, 4, 48, 1, false);
         var dial = new THREE.Mesh(geometry, material);
+        objects.push(dial);
 
         geometry = new THREE.CubeGeometry(5, 2, 1);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(18, 0, 0));
         var mark = new THREE.Mesh(geometry, grey);
+        objects.push(mark);
 
         geometry = new THREE.CubeGeometry(15, 1, 2);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(15, 0, 0));
         var second = new THREE.Mesh(geometry, red);
+        objects.push(second);
 
         geometry = new THREE.CubeGeometry(12, 1, 3);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(15, 0, 0));
         var minute = new THREE.Mesh(geometry, white);
+        objects.push(minute);
 
         geometry = new THREE.CubeGeometry(10, 1, 4);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(15, 0, 0));
-
         var hour = new THREE.Mesh(geometry, white);
-
-
+        objects.push(hour);
+        
 
         // Positions
         dial.position.x = 0;
