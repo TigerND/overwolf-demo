@@ -42,7 +42,7 @@ function closeWindow() {
     })
 }
 
- function start() {
+function start() {
     $(document).ready(function() {
 
     	$('#content')
@@ -50,10 +50,10 @@ function closeWindow() {
     		dragMove()
     	})
     	.mouseenter(function() {
-    		$('#title').addClass('active-title').removeClass('inactive-title')
+    		//$('#title').addClass('active-title').removeClass('inactive-title')
     	})
     	.mouseleave(function() {
-    		$('#title').addClass('inactive-title').removeClass('active-title')
+    		//$('#title').addClass('inactive-title').removeClass('active-title')
     	})
     	
         // Dimension Settings
@@ -67,6 +67,7 @@ function closeWindow() {
         // World Objects
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(angle, aspect, near, far);
+        var projector
         var renderer = new THREE.WebGLRenderer();
 
         var light = new THREE.SpotLight(0xFFFFFF, 1);
@@ -176,7 +177,7 @@ function closeWindow() {
 
         // Render
         renderer.setSize(width, height);
-        document.body.appendChild(renderer.domElement);
+        $('#container').append(renderer.domElement);
 
 
         // Animation Tween
@@ -229,5 +230,20 @@ function closeWindow() {
             renderer.render(scene, camera);
         };
         animate();
+
+    	document.addEventListener('mousedown', function(event) {
+    		event.preventDefault();
+
+    		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+    		projector.unprojectVector( vector, camera );
+
+    		var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+    		var intersects = raycaster.intersectObjects( objects );
+
+    		if ( intersects.length > 0 ) {
+    			dragMove()
+    		}
+    	}, false)
     })
 }
